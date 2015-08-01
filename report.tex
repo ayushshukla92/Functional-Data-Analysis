@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Functional Data Analysis}
+\author{Prof S. Khare, Ayush Shukla}
+\date{July 2015}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+\textit{(The following text are key points of Chapter 1,2 and 3, from the book by J.O. Ramsay and B.W. Silverman)}
+This is a very generic and remarkably versatile topic whose application includes in variety of fields such as \newline Bio-medical data - Psychometric, Medical tests, Drug discovery \newline
+Electronics - testing electronic chips, sensing and monitoring equipments etc. \newline
+Geography - Seismology, Meteorology  \newline
+and many more fields...\newline
+Analysing the data helps to highlight various characteristic and explain variation in outcome. Learning the pattern \& variation among the data and integrating it in various application aspects could be the next cutting edge technology. \newline
+After approximating the data points by a function f, sometimes finding its differential operator may be of interest.	
+\section{Steps in Data Analysis}
+1. Data representation : involves smoothing and interpolation
+2. Feature alignment
+3. Data display
+4. Plotting derivatives graph : It may expose effects inconspicuous in the original function. The plot of second derivative vs first is called phase plane. 
+\section{Tools to explore functional data}
+In functional data, we use the notion of scalars, vectors, derivatives, inner product space, composite function etc to do the analysis. For the statistics of functional data - means, variances, covariances and corelation functions are used. To get the relation between two variables, it is convinient to draw the graph wrt time on x-axis \& y-axis and corelation on the z-axis. These are often visualized better by contour plots. For example, we draw the plots of corelation and cross corelation function for temperature and log precipitation. We read the plot as - \newline
+- autumn weather is highly corelated with spring weather as both temperature and precipitation corelation is high on either side of summer.\newline 
+- looking at cross corelation, midwinter termperature and midwinter precipitation is high.
+\subsection{Function anatomy}
+\textit{Function features : }
+Looking at the graph, following features may be of our interest : peak and valleys, derivative pattern (like the value at which acceleration is zero), location, amplitude, widths of peak.
+\subsection{Data resolution}
+High resolution data means the data set is very close and can pin down to small event. Function are infinite dimensional. Some functions are so erratic that no information is contained in x(t) about x(t+$\Delta$). \newline
+We draw the phase-plane plots to show how derivatives relate to each other, which could help analysing in some cases.
+
+\section{Function data to smooth function}
+It is easy to make analysis on smooth function. By smoothness, we mean that the function x possesses one or more derivative \[Dx,D^2 x,..,D^m x \] The actual data may not be smooth due to presence of noise or measurement error. It may also be the case that the data shows high frequency variation. Practically we chose to ignore variation in small levels.\newline
+Suppose we have the function x and data vector as \[ y = (y_1,...y_n) \]
+we write the points as \[ y_j = x(t_j) + e_j \]     
+where the last term on right side of the equation is the roughness of the raw data. In vector form we can write equation as \[ y = x(t) + e \] We also make the assumption that the error terms are independently distributed with mean zero and variance \[(\sigma)^2 \]. Mathematically, \[Var(y)=(\sigma)^2 I\]
+
+\subsection{Data Resolution}
+Resolution of data gives the idea of functional data analysis. The \textit{curvature} of a function is measured by second derivative. The key observation after looking at certain results tells that the high sampling rate causes differencing to greatly magnify the influence of noise. This is caused by taking differences between extremely close values that magnifies the error.
+\subsection{Representing functions by basis function}
+A basis function is the set of function independent of each other and have the property that we can approximate any function by a weighted sum or linear combination of a sufficiently large K of these function. Like the power series \[1, t, t^2 , t^3 , . . . , t^k , .  \] or fourier series \[1, sin(wt), cos(wt), sin(2wt), cos(2wt),...\] Mathematically we can write them as 
+\[x(t) = \Sigma c_k f_k (t)\]
+The smaller the K is, the better the basis function reflects certain characterstic of data.\newline
+To approximate a function by basis function we use Fourier basis for periodic data and a B-spline for non periodic data. We also find that we use fourier basis when there are no strong local features, curvature is of same order and function is stable.
+\newline
+In spline functions,  we define the degree of freedom as the order of the polynomial plus the number of interior break points.
+By increasing the number of breakpoints we can gain flexibility. Other useful basis systems are : \newline
+Wavelets, exponential and power bases, polynomial bases
+
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
