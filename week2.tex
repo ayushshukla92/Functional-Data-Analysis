@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Functional Data Analysis : week 2}
+\date{July 2015}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\section{R tools}
+For fourier series, we write the basis objext as :
+\[ basisobj = create.fourier.basis(rangeval, nbasis,period)\]
+and for B-spline,
+\[  basisobj = create.bspline.basis(rangeval, nbasis,norder, breaks) \]
+We can create functional data object once we have a coefficient matrix. 
+\[ tempfd = fd(coefmat, basisobj)\]
+Coefficient matrix can be of three dimensions - first for no. of coefficients, second for no. of functions and the last for the dimension of variable (multivariate variable).   \newline
+We can get the curves smooth by keeping the number of basis function small realtive to the amount of data being approximated. Large value of K will result in overfitting of data\newline
+Note: Dependent variable is also knows as criterion\newline
+\textit{ More about Spline }: A spline is a numeric function that is piecewise-defined by polynomial functions, and which possesses a sufficiently high degree of smoothness at the places where the polynomial pieces connect (which are known as knots). Applications : In \textit{Computer Graphics}, paramtric curves are given by splines because of its simplicity, ease and accuracy of evaluation. 
+\section{Computing smooth curves from noisy data}
+\subsection{Smoothing by Regression analysis}
+To make the curve fit to data, we minimize the sum of the squared errors or residuals as \[ SSE(x) = \sum_j (y_j - x(t_j))^2 \] where x is the basis function. Now the minimization problem is \[SSE = \sum_j (y_j-\sum_{k} c_k f(t_j))^2  = \sum_j(y_j - F'(t_j)C)^2\]
+This method is used when we get our work done by curves itself. To go into the derivatives, next approach is recommended
+\subsection{Smoothing by Roughness penalties} % (fold)
+\textit{Roughness of curve :} Curvature is defined as the square of the second derivative of the curve at argument value t\[ [D^2x(t)]^2 \] a line has zero curvature. Roughness is integrated squared second derivative or total curvature \[ \int [D^2x(t)]^2 dt\] When the function is highly variable, the squared of second derivative is large so as the penalty.Consider the equation
+\[ F(c) = \sum_j(y_j - F'(t_j)C)^2  + lambda \int [D^2x(t)]^2 dt \]
+The smoothing parameter \(\lambda \) is responsible for panalizing the curvature. When \(\lambda \) is sufficiently large, \( [D^2x(t)]^2 \) is zero resulting to a straight line - an example of underfitting where as when \(\lambda \) tends to zero, the function tries to fit the data as closely as possible resulting in overfitting. In this case the unbiased estimator of the regression coefficients become \[ c = (ff`+ \lambda R)^{-1} \] where R is the penalty matrix. To get the correct \(\lambda \) we get it generally by the choice if user, what level he wants. Using the formulae gives the wide range of \( \lambda \) that is suitable
+
+% subsection subsection_name (end)
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
