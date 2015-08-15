@@ -1,0 +1,44 @@
+Packages in library ‘/home/ayush/R/x86_64-pc-linux-gnu-library/3.0’:
+
+fda                     Functional Data Analysis
+
+Packages in library ‘/usr/lib/R/library’:
+
+base                    The R Base Package
+boot                    Bootstrap Functions (originally by Angelo Canty
+                        for S)
+class                   Functions for Classification
+cluster                 Cluster Analysis Extended Rousseeuw et al.
+codetools               Code Analysis Tools for R
+compiler                The R Compiler Package
+datasets                The R Datasets Package
+foreign                 Read Data Stored by Minitab, S, SAS, SPSS,
+                        Stata, Systat, Weka, dBase, ...
+graphics                The R Graphics Package
+grDevices               The R Graphics Devices and Support for Colours
+                        and Fonts
+grid                    The Grid Graphics Package
+KernSmooth              Functions for kernel smoothing for Wand & Jones
+                        (1995)
+lattice                 Lattice Graphics
+MASS                    Support Functions and Datasets for Venables and
+                        Ripley's MASS
+Matrix                  Sparse and Dense Matrix Classes and Methods
+methods                 Formal Methods and Classes
+mgcv                    Mixed GAM Computation Vehicle with GCV/AIC/REML
+                        smoothness estimation
+nlme                    Linear and Nonlinear Mixed Effects Models
+nnet                    Feed-forward Neural Networks and Multinomial
+                        Log-Linear Models
+parallel                Support for Parallel computation in R
+rpart                   Recursive Partitioning and Regression Trees
+spatial                 Functions for Kriging and Point Pattern
+                        Analysis
+splines                 Regression Spline Functions and Classes
+stats                   The R Stats Package
+stats4                  Statistical Functions using S4 Classes
+survival                Survival Analysis
+tcltk                   Tcl/Tk Interface
+tools                   Tools for Package Development
+utils                   The R Utils Package
+
