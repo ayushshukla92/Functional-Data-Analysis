@@ -3,10 +3,19 @@ import urllib2
 import csv
 import pandas as pd
 from subprocess import call
+from scipy.interpolate import UnivariateSpline
+import matplotlib.pyplot as plt
 
+mean = 0.0
+std = 0.0
 
-def makeCSV(city,year):
-	csvfile = urllib2.urlopen('http://climate.weather.gc.ca/climateData/bulkdata_e.html?format=csv&stationID=5051&Year='+year+'&Month=1&Day=1&timeframe=2&submit=Download+Data')
+initialYear = int(input("Enter initialYear: "))
+endyear = int(input("Enter endyear: "))
+city = raw_input("Enter a city: ")
+# maxT = 0.0
+
+def makeCSV(year):
+	csvfile = urllib2.urlopen('http://climate.weather.gc.ca/climateData/bulkdata_e.html?format=csv&stationID=5051&Year='+str(year)+'&Month=1&Day=1&timeframe=2&submit=Download+Data')
 	csvResponse = csvfile.read()
 
 	target = open("temp.csv", 'w')
@@ -22,16 +31,19 @@ def makeCSV(city,year):
 
 	call(["rm","temp.csv"])
 
-	filename = city+year+'.csv'
+	filename = city+str(year)+'.csv'
 	with open(filename, 'w') as fp:
 	    a = csv.writer(fp, delimiter=',')
 	    a.writerows(mainRows)
 	        
-def getFiveYearsMean(city,year):
+def getFiveYearsMean(year):
 	filename = city+year+'.csv'
 	data = pd.read_csv(filename)
 
 	meanTempDay = data[data.columns[9]]
+	mean =mean + round(meanTempDay.mean(),2)/5
+	std = std + round(meanTempDay.std(),2)/5
+	# maxT = meanTempDay.max()
 
 	l = []
 	for i in xrange(24):
@@ -39,22 +51,36 @@ def getFiveYearsMean(city,year):
 
 	return pd.DataFrame(l)/5
 
-	
+def getBSplineCurve(fifteenDaysMean):
+	x = np.linspace(0,23,24)
+	y = np.array(fifteenDaysMean)
+	plt.plot(x, y, 'ro', ms= 5)
+	plt.xlabel('15 days mean')
+	plt.ylabel('temperature')
+	plt.title(city+str(initialYear)+'-'+str(endyear))
 
+	spl = UnivariateSpline(x, y)
+	xs = np.linspace(0, 23, 1000)
+	plt.plot(xs, spl(xs), 'g', lw=3)
 
+	plt.text(1,25,'mu = '+ str(mean)+' sigma = '+ str(std), horizontalalignment='left',
+     verticalalignment='center')
+	plt.show()
+	plt.savefig(city+str(initialYear)+'.png')
 
-
-
+for curYear in range(initialYear,endyear+1):
+	makeCSV(curYear)
 
 
 fifteenDaysMean = None
-for curYear in range(1930,1936):
+for curYear in range(initialYear,endyear+1):
 	if fifteenDaysMean is None:
-		fifteenDaysMean = getFiveYearsMean("toronto",str(curYear))
+		fifteenDaysMean = getFiveYearsMean(str(curYear))
 	else:
-		fifteenDaysMean = fifteenDaysMean + getFiveYearsMean("toronto",str(curYear))
+		fifteenDaysMean = fifteenDaysMean + getFiveYearsMean(str(curYear))
 	
-print fifteenDaysMean
+getBSplineCurve(fifteenDaysMean)
+
 
 
 
