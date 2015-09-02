@@ -16,6 +16,7 @@ class fda:
         self.mean = 0.0
         self.std = 0.0
         self.years = endYear - initialYear + 1
+        self.city_curve_map = {}
 
 
     # initialYear = int(input("Enter initialYear: "))
@@ -82,17 +83,19 @@ class fda:
         xs = np.linspace(0, 23, 1000)
         spl_xs = spl(xs)
         plt.plot(xs, spl_xs, 'g', lw=3)
-
+        plt.ylim([-30,40])
         # plt.text(1,fifteenDaysMean.mean()*1.5,'mu = '+ str(self.mean)+' sigma = '+ str(self.std), horizontalalignment='left',
         #  verticalalignment='center')
         plt.savefig(self.city+str(self.initialYear)+'.png')
         plt.show()
+        city_curve_map[self.city] = plt
         plt.close()
         if np.isnan(spl_xs).any():
             return None
         else:
             return spl_xs
-        
+    def get_city_curve_map():
+    	return self.city_curve_map
 
     def getFeatureVector(self):
         for curYear in range(self.initialYear,self.endYear+1):

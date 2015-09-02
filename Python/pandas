@@ -1,7 +1,0 @@
-------------------------Commands in pandas----------------
-import pandas as pd
-
-titanic = pandas.read_csv("train.csv")
-titanic["Age"] = titanic["Age"].fillna(titanic["Age"].median())
-titanic.loc[titanic["Sex"]=="male","Sex"] = 0
-titanic.loc[titanic["Sex"]=="female","Sex"] = 1
