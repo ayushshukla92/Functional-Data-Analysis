@@ -5,7 +5,9 @@ import pandas as pd
 from subprocess import call
 from scipy.interpolate import UnivariateSpline
 import matplotlib.pyplot as plt
+from pylab import *
 import os
+matplotlib.rcParams['figure.figsize'] = (50, 50)
 
 class fda:
     def __init__(self,initialYear,endYear,city,code):
@@ -16,8 +18,8 @@ class fda:
         self.mean = 0.0
         self.std = 0.0
         self.years = endYear - initialYear + 1
-        self.city_curve_map = {}
-
+        # self.city_curve_map = {}
+        # self.size = size
 
     # initialYear = int(input("Enter initialYear: "))
     # endyear = int(input("Enter endyear: "))
@@ -74,27 +76,28 @@ class fda:
     def getBSplineCurve(self,fifteenDaysMean):
         x = np.linspace(0,23,24)
         y = np.array(fifteenDaysMean)
-        plt.plot(x, y,'ro', ms= 5)
-        plt.xlabel('15 days mean')
-        plt.ylabel('temperature')
-        plt.title(self.city+str(self.initialYear)+'-'+str(self.endYear))
+        # plt.plot(x, y,'ro', ms= 5)
+        # plt.xlabel('15 days mean')
+        # plt.ylabel('temperature')
+        # plt.title(self.city+str(self.initialYear)+'-'+str(self.endYear))
 
         spl = UnivariateSpline(x, y)
         xs = np.linspace(0, 23, 1000)
         spl_xs = spl(xs)
-        plt.plot(xs, spl_xs, 'g', lw=3)
-        plt.ylim([-30,40])
+        # plt.plot(xs, spl_xs, 'g', lw=3)
+        # plt.ylim([-30,40])
         # plt.text(1,fifteenDaysMean.mean()*1.5,'mu = '+ str(self.mean)+' sigma = '+ str(self.std), horizontalalignment='left',
         #  verticalalignment='center')
-        plt.savefig(self.city+str(self.initialYear)+'.png')
-        plt.show()
-        city_curve_map[self.city] = plt
-        plt.close()
+        # plt.savefig(self.city+str(self.initialYear)+'.png')
+        # plt.show()
+        # self.city_curve_map[self.city] = plt
+        # plt.close()
         if np.isnan(spl_xs).any():
             return None
         else:
             return spl_xs
-    def get_city_curve_map():
+
+
     	return self.city_curve_map
 
     def getFeatureVector(self):
