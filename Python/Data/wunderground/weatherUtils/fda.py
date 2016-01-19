@@ -63,8 +63,11 @@ class fda:
 
 
         meanTempDay = data[data.columns[2]]
-        self.mean =self.mean + round(meanTempDay.mean(),2)/self.years
-        self.std = self.std + round(meanTempDay.std(),2)/self.years
+        try:
+	        self.mean =self.mean + round(meanTempDay.mean(),2)/self.years
+        except:
+	    	return None
+        #self.std = self.std + round(meanTempDay.std(),2)/self.years
         # maxT = meanTempDay.max()
 
         l = []
@@ -100,7 +103,7 @@ class fda:
 
     	return self.city_curve_map
 
-    def getFeatureVector(self):
+    def getCurve(self):
         for curYear in range(self.initialYear,self.endYear+1):
             self.makeCSV(curYear)
 
@@ -117,11 +120,47 @@ class fda:
 
         # fifteenDaysMean.loc[23] = fifteenDaysMean.loc[0]
         if fifteenDaysMean is not None:
-            features = self.getBSplineCurve(fifteenDaysMean)
-            return features
+            curve = self.getBSplineCurve(fifteenDaysMean)
+            return curve
         else:
             print "No data found for : " + self.city
             return None
+
+    
+
+    def getDerivative(self,curve):
+    	der = []
+    	for i in xrange(1,len(curve)-1):
+    		der.append(1000*(curve[i] - curve[i-1]))
+
+    	return der
+
+
+
+    def getFeatures(self,points):
+
+    	features = []
+    	features.append(max(points))
+    	features.append(points.index(max(points)))
+    	features.append(min(points))
+    	features.append(points.index(min(points)))
+    	features.append(max(points) - min(points))
+
+    	der = getDerivative(points)
+
+    	features.append(max(der))
+    	features.append(min(der))
+
+    	# no of extremum
+    	count = 0
+    	for i in xrange(1,len(points)-2):
+    		if points[i]>points[i-1] and points[i]>points[i+1]:
+    			count = count+1
+
+    	features.append(count)
+    	return features
+
+
 
 
 # x = np.linspace(0,23,24)
